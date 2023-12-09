@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 10),
+      Duration(seconds: 5),
           () {
         // Navega para a tela principal após o atraso
         Navigator.pushReplacement(

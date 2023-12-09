@@ -7,7 +7,7 @@ through the device's camera, employing real-time machine learning analysis.
 O projeto propõe o desenvolvimento de um aplicativo móvel utilizando a tecnologia Flutter, destinado à disciplina de Integração Curricular 2.
 A principal finalidade do aplicativo é realizar a verificação dos Equipamentos de Proteção Individual (EPI)
 dos usuários por meio da câmera do dispositivo, empregando técnicas de machine learning para análise em tempo real.
-
+    
 ## Getting Started
 
 This project is a starting point for a Flutter application.
