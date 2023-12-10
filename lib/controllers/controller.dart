@@ -9,6 +9,7 @@ class Controller extends GetxController {
   void onInit(){
     super.onInit();
     initCamera();
+    initTLite();
   }
 
   @override
@@ -20,23 +21,29 @@ class Controller extends GetxController {
   late CameraController cameraController;
   late List<CameraDescription> cameras;
 
-  late CameraImage cameraImage;
+  //late CameraImage cameraImage;
 
   var isCameraInitialize = false.obs;
   var cameraCount = 0;
+
+  var x, y, w, h = 0.0;
+  var label = '';
 
   initCamera() async{
     if (await Permission.camera.request().isGranted){
       cameras = await availableCameras();
       cameraController = CameraController(
-          cameras[1],
+          cameras[0],
           ResolutionPreset.max);
       await cameraController.initialize().then((value) {
-        cameraCount++;
-        if(cameraCount %10 == 0) {
-          cameraController.startImageStream((image) => objectDetector(image));
-          update();
-        }
+          cameraController.startImageStream((image) {
+            cameraCount++;
+            if (cameraCount % 10 == 0){
+              cameraCount = 0;
+              objectDetector(image);
+            }
+            update();
+          });
       });
       isCameraInitialize(true);
       update();
@@ -44,6 +51,16 @@ class Controller extends GetxController {
     else{
       print("Sem permissão");
     }
+  }
+
+  initTLite() async{
+    await Tflite.loadModel(
+      model: "assets/models/model.tflite",
+      labels: "assets/models/label.txt",
+      isAsset: true,
+      numThreads: 1,
+      useGpuDelegate: false,
+    );
   }
 
   objectDetector(CameraImage image) async{
@@ -62,7 +79,7 @@ class Controller extends GetxController {
     );
 
     if (detector != null){
-      print("Result is $detector");
+      print(detector);
     }
   }
 }

@@ -196,8 +196,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            //builder: (context) => InputScreen(onAddCard: addCard),
-                            builder: (context) => CameraView(),
+                            builder: (context) => WorkerPage(onAddCard: addCard),
+                            //builder: (context) => CameraView(),
                           ),
                         );
                       },
