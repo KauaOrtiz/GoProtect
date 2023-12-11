@@ -1,0 +1,7 @@
+Gloves
+Helmet
+Non-Helmet
+Person
+Shoes
+Vest
+bare-arms

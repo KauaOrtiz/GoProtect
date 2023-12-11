@@ -13,10 +13,12 @@ class Controller extends GetxController {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     cameraController.dispose();
+    Tflite.close();
   }
+
 
   late CameraController cameraController;
   late List<CameraDescription> cameras;
@@ -55,31 +57,32 @@ class Controller extends GetxController {
 
   initTLite() async{
     await Tflite.loadModel(
-      model: "assets/models/model.tflite",
-      labels: "assets/models/label.txt",
+      model: "assets/models/modelCustom.tflite",
+      labels: "assets/models/labelCustom.txt",
       isAsset: true,
       numThreads: 1,
       useGpuDelegate: false,
     );
   }
 
-  objectDetector(CameraImage image) async{
+  objectDetector(CameraImage image) async {
     var detector = await Tflite.runModelOnFrame(
-        bytesList: image.planes.map((e) {
-          return e.bytes;
-        }).toList(),
+      bytesList: image.planes.map((e) {
+        return e.bytes;
+      }).toList(),
       asynch: true,
       imageHeight: image.height,
       imageWidth: image.width,
       imageMean: 127.5,
       imageStd: 127.5,
-      numResults: 1,
+      numResults: 10, // Ajuste o número conforme necessário
       rotation: 90,
-      threshold: 0.4,
+      threshold: 0.3,
     );
 
-    if (detector != null){
+    if (detector != null) {
       print(detector);
+      print(detector.length);
     }
   }
 }
