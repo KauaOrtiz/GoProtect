@@ -132,7 +132,7 @@ class _YoloImageV8State extends State<YoloImageV8> {
             ],
           ),
         ),
-        ...displayBoxesAroundRecognizedObjects(size),
+        //...displayBoxesAroundRecognizedObjects(size),
       ],
     );
   }
