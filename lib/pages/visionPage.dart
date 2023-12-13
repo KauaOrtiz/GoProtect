@@ -8,6 +8,8 @@ import 'dart:async';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'cameraScreen.dart';
+
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DartPluginRegistrant.ensureInitialized();
@@ -43,6 +45,27 @@ class _VisionPageState extends State<VisionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'GoProtect',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+                fontFamily: "Syne",
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        centerTitle: true,
+        elevation: 0,
+      ),
       body: YoloImageV8(vision: vision),
     );
   }
@@ -102,6 +125,10 @@ class _YoloImageV8State extends State<YoloImageV8> {
                 onPressed: pickImage,
                 child: const Text("Pick an image"),
               ),
+              TextButton(
+                onPressed: pickImage2,
+                child: const Text("Take a picture"),
+              ),
             ],
           ),
         ),
@@ -135,6 +162,33 @@ class _YoloImageV8State extends State<YoloImageV8> {
     }
   }
 
+  Future<void> pickImage2() async {
+    final cameras = await availableCameras();
+    if (cameras.isEmpty) {
+      print('No cameras available');
+      return;
+    }
+
+    final frontCamera = cameras.firstWhere(
+          (camera) => camera.lensDirection == CameraLensDirection.front,
+      orElse: () => cameras.first,
+    );
+
+    final XFile? photo = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CameraScreen(camera: frontCamera),
+      ),
+    );
+
+    if (photo != null) {
+      setState(() {
+        imageFile = File(photo.path);
+      });
+      yoloOnImage();
+    }
+  }
+
+
   yoloOnImage() async {
     yoloResults.clear();
     Uint8List byte = await imageFile!.readAsBytes();
@@ -152,6 +206,10 @@ class _YoloImageV8State extends State<YoloImageV8> {
       setState(() {
         yoloResults = result;
       });
+      List classesDetected = yoloResults.map((result) => result['tag']).toList();
+
+// Agora, a lista classesDetected contém as classes das detecções na imagem.
+      print(classesDetected);
     }
   }
 
