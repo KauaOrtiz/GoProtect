@@ -1,16 +1,10 @@
-# flutter_vision_example
+# GoProtect
+The project aims to develop a mobile application using Flutter technology
+for the Integration Curricular 3 discipline.
+The main purpose of the application is to perform verification of users' Personal Protective Equipment (PPE)
+through the device's camera, employing real-time machine learning analysis.
 
-Demonstrates how to use the flutter_vision plugin.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O projeto propõe o desenvolvimento de um aplicativo móvel utilizando a tecnologia Flutter,
+destinado à disciplina de Integração Curricular 3.
+A principal finalidade do aplicativo é realizar a verificação dos Equipamentos de Proteção Individual (EPI)
+dos usuários por meio da câmera do dispositivo, empregando técnicas de machine learning para análise em tempo real.
