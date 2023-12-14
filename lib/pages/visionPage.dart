@@ -153,8 +153,11 @@ class _YoloImageV8State extends State<YoloImageV8> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                imageFile != null ? Image.file(imageFile!) : const SizedBox(),
-                //...displayBoxesAroundRecognizedObjects(size),
+                // Adiciona uma verificação se imageFile é nulo
+                if (imageFile != null)
+                  Image.file(imageFile!)
+                else
+                  Image.asset('assets/icons/worker.png'), // Mostra worker.png se imageFile for nulo
               ],
             ),
           ),
