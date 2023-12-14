@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,8 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
+    final player = AudioPlayer();
+    player.play(AssetSource('audios/photo_orientation.mp3'));
     _controller = CameraController(
       widget.camera,
       ResolutionPreset.max,

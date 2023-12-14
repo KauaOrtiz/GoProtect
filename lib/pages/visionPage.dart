@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -113,6 +114,8 @@ class _YoloImageV8State extends State<YoloImageV8> {
   @override
   void initState() {
     super.initState();
+    final player = AudioPlayer();
+    player.play(AssetSource('audios/welcome.mp3'));
     loadYoloModel().then((value) {
       setState(() {
         yoloResults = [];
@@ -129,7 +132,6 @@ class _YoloImageV8State extends State<YoloImageV8> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -337,15 +339,23 @@ class _YoloImageV8State extends State<YoloImageV8> {
 
       // Verifica se Helmet e Vest estão presentes na lista
       if (classesDetected.contains('Capacete') && classesDetected.contains('Colete')) {
+        final player = AudioPlayer();
+        player.play(AssetSource('audios/ppe_ok.mp3'));
         updateText("Verificação concluída! Bom trabalho para você.");
         setState(() {
           showButtons = false;
         });
       } else if (classesDetected.contains('Capacete') && !classesDetected.contains('Colete')) {
+        final player = AudioPlayer();
+        player.play(AssetSource('audios/vest_orientation.mp3'));
         updateText("Opa, não é possivel ver o colete, tente novamente!");
       } else if (!classesDetected.contains('Capacete') && classesDetected.contains('Colete')) {
+        final player = AudioPlayer();
+        player.play(AssetSource('audios/helmet_orientation.mp3'));
         updateText("Opa, não é possivel ver o capacete, tente novamente!");
       } else {
+        final player = AudioPlayer();
+        player.play(AssetSource('audios/ppe_orientation.mp3'));
         updateText("Opa, não consigo ver seus EPIS, tente novamente!");
       }
 
