@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/pages/visionPage.dart';
 import 'pages/splashArt.dart';
+import 'pages/workerPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -192,6 +193,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     margin: EdgeInsets.all(20),
                     child: ElevatedButton(
                       onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WorkerPage(onAddCard: addCard),
+                            //builder: (context) => VisionPage(),
+                          ),
+                        );
                         Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -1,7 +1,7 @@
 Gloves
-Helmet
+Capacete
 Non-Helmet
-Person
+Pessoa
 Shoes
-Vest
+Colete
 bare-arms
